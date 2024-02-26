@@ -1,55 +1,70 @@
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family:sans-serif;
+    font-size: 100%;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 40px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+h2 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: auto;
+    width: 140px;
+    height: 35px;
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+}
+
+.section {
+    clear: margin;
+    position: relative;
+    color: black;
+    background-color: #32CD32;
+    padding: 10px;
+    padding-top: 45px;
+    font-size: 100%;
+    border: 3px solid black;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+
+}
+
+.caption1 {
+    background-color: #C0C0C0;
+
+}
+
+.caption2 {
+    background-color: #FFD700;        
+}
+
+.caption3 {
+    background-color: #DDA0DD;
+
 }
 
 .row {
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
+    margin: 0 -2.5%;
 }
 
 [class^="col-"] {
-    box-sizing: border-box;
+    padding: 0 2.5%;
 }
 
-.col-lg-4, .col-md-6, .col-sm-12 {
-    padding: 20px 10px 0px 10px;
-    position: relative;
-}
-
-p {
-    margin: 10px;
-}
-
-span {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid black;
-    padding: 5px;
-    background-color: white;
-}
-
-#Caption-1 {
-    background-color: #C0C0C0;
-}
-
-#Caption-2 {
-    background-color: #FFD700;
-}
-
-#Caption-3 {
-    background-color: #DDA0DD;
-}
 
 @media (min-width: 992px) {
     .col-lg-1 { width: 8.33%; }
@@ -66,7 +81,7 @@ span {
     .col-lg-12 { width: 100%; }
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
+@media (min-width: 768px) and (max-width: 991px) {
     .col-md-1 { width: 8.33%; }
     .col-md-2 { width: 16.66%; }
     .col-md-3 { width: 25%; }
@@ -81,7 +96,8 @@ span {
     .col-md-12 { width: 100%; }
 }
 
-@media (max-width: 768px) {
+
+@media (max-width: 767px) {
     .col-sm-1 { width: 8.33%; }
     .col-sm-2 { width: 16.66%; }
     .col-sm-3 { width: 25%; }
