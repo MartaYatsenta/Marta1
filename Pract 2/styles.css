@@ -30,7 +30,7 @@ h2 {
     clear: margin;
     position: relative;
     color: black;
-    background-color: #32CD32;
+    background-color: #ffe6ff;
     padding: 10px;
     padding-top: 45px;
     font-size: 100%;
@@ -47,11 +47,11 @@ h2 {
 }
 
 .caption2 {
-    background-color: #FFD700;        
+    background-color: #ff99ff;        
 }
 
 .caption3 {
-    background-color: #DDA0DD;
+    background-color: #ff3399;
 
 }
 
