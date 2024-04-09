@@ -1,29 +1,43 @@
-function generateRandomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+window.onload = function() {
+    // Вибір елементів з DOM
+    const heightSelect = document.getElementById("heightSelect");
+    const generateButton = document.getElementById("generateButton");
+    const generatedDiv = document.getElementById("generatedDiv");
 
-function insertionSort(array) {
-    for (let i = 1; i < array.length; i++) {
-        let current = array[i];
-        let j = i - 1;
+    // Функція для генерації елементу div з характеристиками
+    function generateDiv() {
+        const selectedHeight = heightSelect.value + "px";
+        const generatedHTML = `<div id="generatedBlock" style="background-color: blue; width: 30px; height: ${selectedHeight};"></div>`;
+        generatedDiv.innerHTML = generatedHTML;
 
-        while (j >= 0 && array[j] > current) {
-            array[j + 1] = array[j];
-            j--;
-        }
-        array[j + 1] = current;
+        // Додаємо кнопки "Посунути вліво" і "Посунути вправо"
+        const moveLeftButton = document.createElement("button");
+        moveLeftButton.textContent = "Посунути вліво";
+        moveLeftButton.addEventListener("click", function() {
+            moveBlock(-20);
+        });
+
+        const moveRightButton = document.createElement("button");
+        moveRightButton.textContent = "Посунути вправо";
+        moveRightButton.addEventListener("click", function() {
+            moveBlock(20);
+        });
+
+        generatedDiv.appendChild(moveLeftButton);
+        generatedDiv.appendChild(moveRightButton);
     }
-    return array;
-}
 
-let array = [];
-for (let i = 0; i < 20; i++) {
-    array.push(generateRandomInteger(1, 100));
-}
+    // Додати обробник подій на кнопку "Згенерувати"
+    generateButton.addEventListener("click", generateDiv);
 
-console.log("Початковий масив:", array);
+    // Функція для переміщення блоку
+    function moveBlock(offset) {
+        const generatedBlock = document.getElementById("generatedBlock");
+        const currentLeft = parseInt(window.getComputedStyle(generatedBlock).left || 0);
+        generatedBlock.style.left = (currentLeft + offset) + "px";
+    }
 
-let sortedArray = insertionSort(array);
-
-console.log("Відсортований масив:", sortedArray);
+    // Викликати функцію generateDiv() для відображення елементу div зі значенням, вибраним за замовчуванням
+    generateDiv();
+};
 
