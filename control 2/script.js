@@ -12,7 +12,6 @@
     }
 
     let array = generateArray(20);
-    console.log(SortLibrary.studentyEvakyjytsaPidChasMinuvannyaSort(array, true));
     document.getElementById("container").textContent = array;
     document.getElementById("generate-button").addEventListener("click", (event) => {
         console.log();
