@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контрольна робота No2 Яцента Марта Ігорівна</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контрольна робота No2 Яцента Марта Ігорівна</title>
 </head>
 <body>
-    <h1>Контрольна робота No2 Яцента Марта Ігорівна</h1>
+  <h1>Контрольна робота No2 Яцента Марта Ігорівна</h1>
 
-    <div id="sortedArray"></div>
+  <div id="sortedArray"></div>
 
-    <h2>Випадний список</h2>
-    <label for="heightSelect">Висота</label>
-    <select id="heightSelect">
-        <option value="25">25px</option>
-        <option value="45" selected>45px</option> 
-        <option value="65">65px</option>
-    </select>
+  <h2>Випадний список</h2>
+  <label for="heightSelect">Підпис: Висота</label>
+  <select id="heightSelect">
+    <option value="25">25px</option>
+    <option value="45" selected>45px</option> <!-- Позиція за замовчуванням -->
+    <option value="65">65px</option>
+  </select>
 
-    <button id="generateButton">Згенерувати</button>
+  <button onclick="generateElement()">Згенерувати</button>
 
-    <div id="generatedDiv"></div>
+  <div id="generatedElement"></div>
 
-    <script src="script.js"></script>
+  <button onclick="moveLeft()">Посунути вліво</button>
+  <button onclick="moveRight()">Посунути вправо</button>
+
+  <script>
+    function generateElement() {
+      // Отримання значення вибраного елемента випадаючого списку
+      let height = document.getElementById("heightSelect").value;
+
+      // Створення елемента div з вказаними характеристиками
+      let divElement = document.createElement("div");
+      divElement.textContent = "Колір: Синій, Ширина: 30px, Висота: " + height + "px";
+
+      // Додавання елемента div на сторінку під випадним списком
+      document.getElementById("generatedElement").appendChild(divElement);
+    }
+
+    function moveLeft() {
+      // Зміщення елемента div вліво на 20px
+      let generatedElement = document.getElementById("generatedElement");
+      let currentPosition = parseInt(generatedElement.style.marginLeft) || 0;
+      generatedElement.style.marginLeft = (currentPosition - 20) + "px";
+    }
+
+    function moveRight() {
+      // Зміщення елемента div вправо на 20px
+      let generatedElement = document.getElementById("generatedElement");
+      let currentPosition = parseInt(generatedElement.style.marginLeft) || 0;
+      generatedElement.style.marginLeft = (currentPosition + 20) + "px";
+    }
+  </script>
 </body>
 </html>
