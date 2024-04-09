@@ -40,4 +40,3 @@ window.onload = function() {
     // Викликати функцію generateDiv() для відображення елементу div зі значенням, вибраним за замовчуванням
     generateDiv();
 };
-
