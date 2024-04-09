@@ -1,12 +1,77 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control 2</title>
+    <title>Контрольна робота No2</title>
 </head>
 <body>
     <h1>Контрольна робота No2 Яцента Марта Ігорівна</h1>
-    <script src="script.js" ></script>
+    <div id="sortedArray"></div>
+
+    <h2>Виберіть позицію:</h2>
+    <select id="positionSelect">
+        <option value="25">25px</option>
+        <option value="45" selected>45px</option> <!-- Обрано за замовчуванням -->
+        <option value="65">65px</option>
+    </select>
+
+    <button onclick="generateDiv()">Згенерувати</button>
+
+    <div id="generatedDiv"></div>
+
+    <script>
+        function generateDiv() {
+            // Отримуємо значення вибране випадним списком
+            let selectedValue = document.getElementById('positionSelect').value;
+
+            // Створюємо елемент div з характеристиками
+            let div = document.createElement('div');
+            div.style.backgroundColor = 'blue';
+            div.style.width = '30px';
+            div.style.height = selectedValue + 'px'; // Висота згідно з вибраним значенням
+
+            // Додаємо елемент div під випадний список
+            let generatedDivElement = document.getElementById('generatedDiv');
+            generatedDivElement.innerHTML = ''; // Очищуємо, щоб замінити попередній елемент
+            generatedDivElement.appendChild(div);
+
+            // Створюємо кнопку для зміни кольору
+            let changeColorButton = document.createElement('button');
+            changeColorButton.textContent = 'Змінити колір';
+            changeColorButton.onclick = function() {
+                div.style.backgroundColor = 'red'; // Змінюємо колір на червоний
+            };
+            generatedDivElement.appendChild(changeColorButton);
+
+            // Створюємо кнопку для зміни розмірів
+            let changeSizeButton = document.createElement('button');
+            changeSizeButton.textContent = 'Змінити розміри';
+            changeSizeButton.onclick = function() {
+                div.style.width = '50px';
+                div.style.height = '50px'; // Змінюємо розміри на 50px на 50px
+            };
+            generatedDivElement.appendChild(changeSizeButton);
+
+            // Створюємо кнопку для зміщення вліво
+            let moveLeftButton = document.createElement('button');
+            moveLeftButton.textContent = 'Посунути вліво';
+            moveLeftButton.onclick = function() {
+                let currentLeft = parseInt(div.style.left) || 0;
+                div.style.left = (currentLeft - 20) + 'px';
+            };
+            generatedDivElement.appendChild(moveLeftButton);
+
+            // Створюємо кнопку для зміщення вправо
+            let moveRightButton = document.createElement('button');
+            moveRightButton.textContent = 'Посунути вправо';
+            moveRightButton.onclick = function() {
+                let currentLeft = parseInt(div.style.left) || 0;
+                div.style.left = (currentLeft + 20) + 'px';
+            };
+            generatedDivElement.appendChild(moveRightButton);
+        }
+    </script>
 </body>
 </html>
