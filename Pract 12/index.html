@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practical12 </title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Практична робота №12 Яцента Марта Ігорівна</h1>
+    <form id="userForm">
+        <label for="username">Ім'я користувача:</label>
+        <input type="text" id="username" name="username"><br>
+        <br>
+        <label for="email">Електронна пошта:</label>
+        <input type="email" id="email" name="email"><br>
 
+        <label>Оберіть прийоми їжі:</label><br>
+        <input type="radio" id="breakfast" name="meal" value="Сніданок">
+        <label for="breakfast">Сніданок</label><br>
+        <input type="radio" id="lunch" name="meal" value="Обід">
+        <label for="lunch">Обід</label><br>
+        <input type="radio" id="dinner" name="meal" value="Вечеря">
+        <label for="dinner">Вечеря</label><br>
+
+        <label>Оберіть страви:</label><br>
+        <input type="checkbox" id="borshch" name="dish" value="Борщ">
+        <label for="borshch">Борщ</label><br>
+        <input type="checkbox" id="porridge" name="dish" value="Вівсяна каша">
+        <label for="porridge">Вівсяна каша</label><br>
+        <input type="checkbox" id="pasta" name="dish" value="Паста Болоньєзе">
+        <label for="pasta">Паста Болоньєзе</label><br>
+        <input type="checkbox" id="pizza" name="dish" value="Піца">
+        <label for="pizza">Піца</label><br>
+        <input type="checkbox" id="shashlik" name="dish" value="Шашлик">
+        <label for="shashlik">Шашлик</label><br>
+
+        <label for="comment">Коментар:</label><br>
+        <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
+
+        <button type="button" id="submitBtn">Надіслати</button>
+    </form>
+    <div id="result"></div>
+</body>
+</html>
