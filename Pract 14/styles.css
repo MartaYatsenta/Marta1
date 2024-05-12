@@ -1,1 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
 
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+#gameContainer {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#gameBoard {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td {
+    width: 60px;
+    height: 60px;
+    background-color: #ccc;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.lightOn {
+    background-color: #ffcc00;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #333;
+    color: white;
+    border: 2px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: #666;
+    border-color: #666;
+}
