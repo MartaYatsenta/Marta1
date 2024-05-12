@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practical13</title>
+    <link rel="stylesheet"  href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="startPage">
+            <h1>Pixel Hunt</h1>
+            <label for="difficulty">Choose difficulty:</label>
+            <select id="difficulty">
+                <option value="" disabled selected>Please choose an option</option>
+                <option value="easy">Easy</option>
+                <option value="normal">Normal</option>
+                <option value="hard">Hard</option>
+            </select>
+            <label for="color">Choose block color:</label>
+            <select id="color">
+                <option value="" disabled selected>Please choose an option</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="black">Black</option>
+                <option value="purple">Purple</option>
+            </select>
+            <button id="startButton">Start</button>
+        </div>
+        <div id="gamePage">
+            <div id="stats">
+                <div id="timer">Time left for click: </div>
+            </div>
+            <div id="block"></div>
+            <div id="score">Score: 0</div>
+        </div>
+    </div>
 
+    <script src="script.js"></script>
+</body>
+</html>
