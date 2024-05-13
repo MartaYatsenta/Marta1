@@ -1,0 +1,143 @@
+@import url("hero.css");
+@import url("footer.css");
+@import url("burger.css");
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+a:focus,
+a:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+
+ *{
+    font-family: "Nunito Sans", serif;
+}
+/* АДАПТИВ */
+
+
+@media (min-width: 1320px) {
+    .container {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 15px 0;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px 0;
+    }
+}
+@media (max-width: 1200px) and (min-width: 992px) {
+    .container {
+        max-width: 992px;
+        margin: 0 auto;
+        padding: 15px 0;
+    }
+}
+@media (max-width: 992px) and (min-width: 768px) {
+    .container {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 15px 0;
+    }
+}
+@media (max-width: 768px) and (min-width: 576px) {
+    .container {
+        max-width: 576px;
+        margin: 0 auto;
+        padding: 15px 0;
+    }
+    .navbar-content ul > li {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 576px;
+        margin: 0 auto;
+        padding: 15px 15px;
+    }
+    .navbar-content ul > li {
+        display: none;
+    }
+}
