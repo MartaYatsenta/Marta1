@@ -1,0 +1,121 @@
+.menu-icon {
+    width: 40px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.menu-icon div {
+    width: 100%;
+    height: 4px;
+    background-color: #BDB76B;
+    transition: transform 0.4s, opacity 0.4s, background-color 0.4s;
+}
+
+.menu-icon.active .bar1 {
+    transform: translateY(10px) rotate(45deg);
+    background-color: #BDB76B;
+}
+
+.menu-icon.active .bar2 {
+    opacity: 0;
+}
+
+.menu-icon.active .bar3 {
+    transform: translateY(-10px) rotate(-45deg);
+    background-color: #BDB76B;
+}
+
+
+.burger {
+    display: none;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards; 
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.burger.active {
+    display: block;
+    opacity: 1;
+}
+.content ul > li {
+    color:#F0E68C;
+    font-size: 18px;
+    font-weight: 600;
+}
+.content ul > li:hover {
+    background-color: #EEE8AA;
+    color: white;
+    animation: fadeIn .4s forwards; 
+}
+
+
+.burger .navbar-categories li {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    padding: 4px;
+}
+
+.burger .navbar-categories li a {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+}
+
+.burger .navbar-categories li a::before {
+    content: "";
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.burger .navbar-categories li .burger-link-home::before {
+    background-image: url("../image/home.png");
+}
+
+.burger .navbar-categories li .burger-link-catalog::before {
+    background-image: url("../image/catalog-icon.png");
+}
+
+.burger .navbar-categories li .burger-link-about::before {
+    background-image: url("../image/about.png");
+}
+
+.burger .navbar-categories li .burger-link-awards::before {
+    background-image: url("../image/award.png");
+} 
+
+@media (min-width: 769px) {
+    .menu-icon {
+        display: none;
+    }
+    .burger > nav {
+        display: none;
+    }
+}
+
+
+
+
