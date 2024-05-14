@@ -23,7 +23,7 @@ h1 {
 button {
     padding: 12px 24px;
     margin: 10px;
-    background-color: #007bff;
+    background-color: #ff0066;
     color: white;
     border: none;
     border-radius: 5px;
@@ -57,7 +57,7 @@ td {
 
 
 .lightOff {
-    background-color: #66CDAA;
+    background-color: #ff80b3;
 }
 
 #gameInfo {
