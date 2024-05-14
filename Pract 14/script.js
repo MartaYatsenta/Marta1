@@ -1,61 +1,63 @@
-// Оголошуємо початковий стан дошки
-let boardState = [
-    [false, false, false],
-    [false, false, false],
-    [false, false, false]
+const path = require("path");
+const express = require("express");
+const app = express();
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res, next) => {
+    res.type(".html").sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+const arrayOfJsonStathams = [
+    {
+        target: 7,
+        fieldPattern: [
+            [1, 1, 1, 1, 1],
+            [0, 0, 1, 0, 0],
+            [1, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1],
+            [0, 1, 0, 0, 1],
+        ],
+    },
+    {
+        target: 8,
+        fieldPattern: [
+            [1, 0, 1, 0, 0],
+            [0, 1, 1, 1, 1],
+            [0, 0, 1, 1, 0],
+            [0, 0, 1, 0, 0],
+            [0, 1, 1, 1, 0],
+        ],
+    },
+    {
+        target: 9,
+        fieldPattern: [
+            [1, 0, 0, 0, 0],
+            [0, 1, 1, 0, 1],
+            [1, 0, 0, 1, 1],
+            [0, 0, 1, 1, 1],
+            [1, 1, 0, 0, 0],
+        ],
+    },
 ];
 
-// Функція, що перемикає стан певної клітинки та її сусідів
-function toggleLights(row, col) {
-    boardState[row][col] = !boardState[row][col]; // Перемикаємо клітинку
+let prevIndex;
 
-    // Перемикаємо сусідні клітинки (верх, низ, ліво, право)
-    if (row > 0) boardState[row - 1][col] = !boardState[row - 1][col]; // Верхня клітинка
-    if (row < 2) boardState[row + 1][col] = !boardState[row + 1][col]; // Нижня клітинка
-    if (col > 0) boardState[row][col - 1] = !boardState[row][col - 1]; // Ліва клітинка
-    if (col < 2) boardState[row][col + 1] = !boardState[row][col + 1]; // Права клітинка
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
 }
 
-// Функція перевірки виграшу
-function checkWin() {
-    // Перевіряємо, чи всі клітинки вимкнені
-    return boardState.every(row => row.every(cell => !cell));
-}
-
-// Функція відображення дошки в HTML
-function renderBoard() {
-    const board = document.getElementById('board');
-    board.innerHTML = '';
-
-    for (let i = 0; i < boardState.length; i++) {
-        const row = document.createElement('div');
-        row.className = 'row';
-        for (let j = 0; j < boardState[i].length; j++) {
-            const cell = document.createElement('div');
-            cell.className = `cell ${boardState[i][j] ? 'on' : 'off'}`;
-            cell.addEventListener('click', () => {
-                toggleLights(i, j);
-                renderBoard();
-                if (checkWin()) {
-                    alert('Ви перемогли!');
-                    resetBoard();
-                }
-            });
-            row.appendChild(cell);
-        }
-        board.appendChild(row);
+const getRandomStathamFromArray = function () {
+    let index = getRandomInt(arrayOfJsonStathams.length);
+    while(index === prevIndex){
+        index = getRandomInt(arrayOfJsonStathams.length);
     }
-}
+    prevIndex = index;
+    return arrayOfJsonStathams[index];
+};
 
-// Функція скидання дошки в початковий стан
-function resetBoard() {
-    boardState = [
-        [false, false, false],
-        [false, false, false],
-        [false, false, false]
-    ];
-    renderBoard();
-}
+app.get("/getTemplate", (req, res, next) => {
+    res.type("application/json").send(JSON.stringify(getRandomStathamFromArray()));
+});
 
-// Викликаємо функцію відображення дошки після завантаження сторінки
-window.onload = renderBoard;
+app.listen(3000);
