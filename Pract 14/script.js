@@ -1,157 +1,97 @@
+let currentGameIndex = 0;
+let currentSteps = 0;
+let games = [];
+let startTime;
 let timer;
-let time;
-let movesCount = 0;
+let initialGameStates = [];
 
-const startGame = function ({ target, fieldPattern }) {
-    movesCount = 0;
-    setGameTarget(target);
-    resetMoveCount();
-    const restartButton = document.getElementById("restart-btn");
-    const fieldPatternCopy = fieldPattern.map((arr) => arr.slice());
-    let field = constructField(fieldPatternCopy);
-    attachClickEventsToCells(field, fieldPatternCopy);
-    startTimer();
-    restartButton.removeEventListener("click", restartGame(fieldPattern));
-    restartButton.addEventListener("click", restartGame(fieldPattern));
-};
-
-const restartGame = function(fieldPattern){
-    return (event) => {
-        const fieldPatternCopy = fieldPattern.map((arr) => arr.slice());
-        if (timer) {
-            stopGameTimer();
-        }
-        startTimer();
-        let field = constructField(fieldPatternCopy);
-        movesCount = 0;
-        resetMoveCount();
-        attachClickEventsToCells(field, fieldPatternCopy);
+const fetching = async () => {
+    try {
+        const response = await fetch('gameLightOut.json');
+        const data = await response.json();
+        games = data;
+        initialGameStates = games.map(game => JSON.parse(JSON.stringify(game.initial_state)));
+        setupGame(currentGameIndex);
+    } catch (error) {
+        console.error('Failed to fetch game data:', error);
     }
 };
 
-const constructField = function (fieldPattern) {
-    const fieldContainer = document.getElementById("field-cont");
-    clearContainer(fieldContainer);
-    const field = [];
-    for (let i = 0; i < fieldPattern.length; i++) {
-        const fieldRow = [];
-        for (let j = 0; j < fieldPattern[0].length; j++) {
-            const cell = createGameCell(fieldPattern[i][j], i, j);
-            fieldContainer.appendChild(cell);
-            fieldRow.push(cell);
-        }
-        field.push(fieldRow);
-    }
-    return field;
-};
+const startGame = (game) => {
+    clearInterval(timer);
+    startTime = Date.now();
+    timer = setInterval(updateTime, 1000);
 
-const clearContainer = function (container) {
-    container.innerHTML = "";
-};
+    currentSteps = 0;
+    updateSteps();
 
-const createGameCell = function (state, i, j) {
-    const cell = document.createElement("div");
-    cell.id = `${i}_${j}`;
-    state && cell.classList.add("active");
-    return cell;
-};
+    document.getElementById('minSteps').textContent = game.minimum_steps_to_win;
 
-const startTimer = function () {
-    stopGameTimer();
-    time = 0;
-    const timerContainer = document.getElementById("timer");
-    timerContainer.textContent = "00:00";
-    timer = setInterval(() => {
-        time++;
-        timerContainer.textContent =
-            Math.floor((time % 3600) / 60)
-                .toString()
-                .padStart(2, "0") +
-            ":" +
-            Math.floor(time % 60)
-                .toString()
-                .padStart(2, "0");
-    }, 1000);
-};
+    const board = document.getElementById('gameBoard');
+    board.innerHTML = '';
 
-const attachClickEventsToCells = function (field, fieldPattern) {
-    for (let i = 0; i < field.length; i++) {
-        for (let j = 0; j < field[0].length; j++) {
-            field[i][j].addEventListener("click", (event) => {
-                toggleCellState(fieldPattern, i, j);
-                toggleCellState(fieldPattern, i + 1, j);
-                toggleCellState(fieldPattern, i - 1, j);
-                toggleCellState(fieldPattern, i, j + 1);
-                toggleCellState(fieldPattern, i, j - 1);
-                checkIfAllCellsAreZeroes(fieldPattern) && endTheGame();
-                updateMoveCount();
-            });
-        }
-    }
-};
-
-const toggleCellState = function (fieldPattern, i, j) {
-    const cell = document.getElementById(`${i}_${j}`);
-    if (cell) {
-        fieldPattern[i][j] = !fieldPattern[i][j];
-        cell.classList.toggle("active");
-    }
-};
-
-const checkIfAllCellsAreZeroes = function (fieldPattern) {
-    let allZeroes = true;
-    fieldPattern.forEach((row) => {
-        row.forEach((cell) => {
-            allZeroes = !cell && allZeroes ? true : false;
+    game.initial_state.forEach((row, r) => {
+        const tr = board.insertRow();
+        row.forEach((cell, c) => {
+            const td = tr.insertCell();
+            td.className = cell === 1 ? 'lightOn' : '';
+            td.onclick = () => toggleLights(r, c, game.initial_state);
         });
     });
-    return allZeroes;
 };
 
-const endTheGame = function () {
-    stopGameTimer();
-    setTimeout(() => {
-        if (!alert("Congratulation! You're N...")) {
+const toggleLights = (r, c, grid) => {
+    const toggle = (r, c) => {
+        if (r >= 0 && r < 5 && c >= 0 && c < 5) {
+            grid[r][c] = 1 - grid[r][c];
+            const cell = document.getElementById('gameBoard').rows[r].cells[c];
+            cell.className = grid[r][c] === 1 ? 'lightOn' : '';
         }
-    }, 500);
-};
+    };
 
-constructField([
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-]);
+    toggle(r, c);
+    toggle(r - 1, c);
+    toggle(r + 1, c);
+    toggle(r, c - 1);
+    toggle(r, c + 1);
 
-const updateMoveCount = function () {
-    movesCount++;
-    document.getElementById("moves").textContent = movesCount;
-};
+    currentSteps++;
+    updateSteps();
 
-const resetMoveCount = function () {
-    document.getElementById("moves").textContent = 0;
-};
-
-const stopGameTimer = function () {
-    clearInterval(timer);
-};
-
-const setGameTarget = function (target) {
-    document.getElementById("target").textContent = target;
-};
-
-const getRandomField = async () => {
-    const fields = ["gameLightOut.json"];
-    const randomField = fields[Math.floor(Math.random() * fields.length)];
-    try {
-        const response = await fetch(randomField);
-        const object = await response.json();
-        startGame(object);
-    } catch (error) {
-        console.log(error);
+    if (checkWin(grid)) {
+        clearInterval(timer);
+        setTimeout(() => {
+            alert("Вітаю! Ви виграли!");
+            restart();
+        }, 1000);
     }
 };
 
-const startButton = document.getElementById("start-btn");
-startButton.addEventListener("click", getRandomField);
+const changeCombination = () => {
+    currentGameIndex = (currentGameIndex + 1) % games.length;
+    localStorage.setItem('currentGameIndex', currentGameIndex); // Зберігаємо індекс поточної гри в localStorage
+    setupGame(currentGameIndex);
+};
+
+const restart = () => {
+    currentSteps = 0;
+    resetToInitialState();
+};
+
+const updateSteps = () => {
+    document.getElementById('currentSteps').textContent = currentSteps;
+};
+
+const updateTime = () => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById('gameTime').textContent = elapsed;
+};
+
+window.onload = fetching;
+
+const setupGame = (index) => {
+    const game = games[index];
+    startGame(game);
+};
+
+const resetSteps =
