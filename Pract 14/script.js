@@ -17,7 +17,7 @@ const fetching = async () => {
     }
 };
 
-const startGame = (game) => {
+function startGame(game) {
     clearInterval(timer);
     startTime = Date.now();
     timer = setInterval(updateTime, 1000);
@@ -30,24 +30,26 @@ const startGame = (game) => {
     const board = document.getElementById('gameBoard');
     board.innerHTML = '';
 
-    game.initial_state.forEach((row, r) => {
+    game.initial_state.forEach(function(row, r) {
         const tr = board.insertRow();
-        row.forEach((cell, c) => {
+        row.forEach(function(cell, c) {
             const td = tr.insertCell();
             td.className = cell === 1 ? 'lightOn' : '';
-            td.onclick = () => toggleLights(r, c, game.initial_state);
+            td.onclick = function() {
+                toggleLights(r, c, game.initial_state);
+            };
         });
     });
-};
+}
 
-const toggleLights = (r, c, grid) => {
-    const toggle = (r, c) => {
+function toggleLights(r, c, grid) {
+    function toggle(r, c) {
         if (r >= 0 && r < 5 && c >= 0 && c < 5) {
             grid[r][c] = 1 - grid[r][c];
             const cell = document.getElementById('gameBoard').rows[r].cells[c];
             cell.className = grid[r][c] === 1 ? 'lightOn' : '';
         }
-    };
+    }
 
     toggle(r, c);
     toggle(r - 1, c);
@@ -60,38 +62,56 @@ const toggleLights = (r, c, grid) => {
 
     if (checkWin(grid)) {
         clearInterval(timer);
-        setTimeout(() => {
+        setTimeout(function() {
             alert("Вітаю! Ви виграли!");
             restart();
         }, 1000);
     }
-};
+}
 
-const changeCombination = () => {
+function checkWin(grid) {
+    return grid.every(row => row.every(cell => cell === 0));
+}
+
+function changeCombination() {
     currentGameIndex = (currentGameIndex + 1) % games.length;
-    localStorage.setItem('currentGameIndex', currentGameIndex); // Зберігаємо індекс поточної гри в localStorage
     setupGame(currentGameIndex);
-};
+}
 
-const restart = () => {
+function restart() {
     currentSteps = 0;
     resetToInitialState();
-};
+}
 
-const updateSteps = () => {
+function updateSteps() {
     document.getElementById('currentSteps').textContent = currentSteps;
-};
+}
 
-const updateTime = () => {
+function updateTime() {
     const elapsed = Math.floor((Date.now() - startTime) / 1000);
     document.getElementById('gameTime').textContent = elapsed;
-};
+}
 
 window.onload = fetching;
 
-const setupGame = (index) => {
+const savedGameIndex = localStorage.getItem('currentGameIndex');
+if (savedGameIndex !== null) {
+    currentGameIndex = parseInt(savedGameIndex);
+}
+
+function setupGame(index) {
     const game = games[index];
     startGame(game);
-};
+}
 
-const resetSteps =
+function resetSteps() {
+    currentSteps = 0;
+    updateSteps();
+}
+
+function resetToInitialState() {
+    games[currentGameIndex].initial_state = JSON.parse(JSON.stringify(initialGameStates[currentGameIndex]));
+    startGame(games[currentGameIndex]);
+}
+
+document.getElementById('newGameButton').addEventListener('click', restart);
