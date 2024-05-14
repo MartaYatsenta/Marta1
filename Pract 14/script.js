@@ -142,7 +142,7 @@ const setGameTarget = function (target) {
 };
 
 const getRandomField = async () => {
-    const fields = ["field1.json", "field2.json", "field3.json"];
+    const fields = ["gameLightOut1.json", "gameLightOut2.json", "gameLightOut3.json"];
     const randomField = fields[Math.floor(Math.random() * fields.length)];
     try {
         const response = await fetch(randomField);
