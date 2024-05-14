@@ -33,7 +33,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #ff6699;
 }
 
 #gameBoard {
@@ -52,12 +52,12 @@ td {
 
 
 .lightOn {
-    background-color: #008080;
+    background-color: ##ff80b3;
 }
 
 
 .lightOff {
-    background-color: #ff80b3;
+    background-color: #008080;
 }
 
 #gameInfo {
