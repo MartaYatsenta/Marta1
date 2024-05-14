@@ -91,7 +91,7 @@
                 return response.json();
             })
             .then((json) => {
-                fetch("./Shippet/date.html")
+                fetch("./Snippet/date.html")
                     .then((response) => {
                         return response.text();
                     })
