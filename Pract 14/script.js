@@ -1,160 +1,157 @@
-(function (global) {
-    let timer;
-    let time;
-    let movesCount = 0;
+let timer;
+let time;
+let movesCount = 0;
 
-    const start = function ({ target, fieldPattern }) {
-        if (timer) {
-            stopTimer();
-        }
-        movesCount = 0;
-        setTarget(target);
-        setDefaultCount();
-        const restartButton = document.getElementById("restart-button");
+const startGame = function ({ target, fieldPattern }) {
+    movesCount = 0;
+    setGameTarget(target);
+    resetMoveCount();
+    const restartButton = document.getElementById("restart-btn");
+    const fieldPatternCopy = fieldPattern.map((arr) => arr.slice());
+    let field = constructField(fieldPatternCopy);
+    attachClickEventsToCells(field, fieldPatternCopy);
+    startTimer();
+    restartButton.removeEventListener("click", restartGame(fieldPattern));
+    restartButton.addEventListener("click", restartGame(fieldPattern));
+};
+
+const restartGame = function(fieldPattern){
+    return (event) => {
         const fieldPatternCopy = fieldPattern.map((arr) => arr.slice());
-        let field = buildField(fieldPatternCopy);
-        addEventsToCells(field, fieldPatternCopy);
+        if (timer) {
+            stopGameTimer();
+        }
         startTimer();
-        restartButton.removeEventListener("click", restart(fieldPattern));
-        restartButton.addEventListener("click", restart(fieldPattern));
-    };
+        let field = constructField(fieldPatternCopy);
+        movesCount = 0;
+        resetMoveCount();
+        attachClickEventsToCells(field, fieldPatternCopy);
+    }
+};
 
-    const restart = function(fieldPattern){
-        return (event) => {
-            const fieldPatternCopy = fieldPattern.map((arr) => arr.slice());
-            if (timer) {
-                stopTimer();
-            }
-            startTimer();
-            field = buildField(fieldPatternCopy);
-            movesCount = 0;
-            document.getElementById("moves").textContent = 0;
-            addEventsToCells(field, fieldPatternCopy);
+const constructField = function (fieldPattern) {
+    const fieldContainer = document.getElementById("field-cont");
+    clearContainer(fieldContainer);
+    const field = [];
+    for (let i = 0; i < fieldPattern.length; i++) {
+        const fieldRow = [];
+        for (let j = 0; j < fieldPattern[0].length; j++) {
+            const cell = createGameCell(fieldPattern[i][j], i, j);
+            fieldContainer.appendChild(cell);
+            fieldRow.push(cell);
         }
-    };
+        field.push(fieldRow);
+    }
+    return field;
+};
 
-    const buildField = function (fieldPattern) {
-        const fieldContainer = document.getElementById("field-container");
-        clearContainer(fieldContainer);
-        const field = [];
-        for (let i = 0; i < fieldPattern.length; i++) {
-            const fieldRow = [];
-            for (let j = 0; j < fieldPattern[0].length; j++) {
-                const cell = createCell(fieldPattern[i][j], i, j);
-                fieldContainer.appendChild(cell);
-                fieldRow.push(cell);
-            }
-            field.push(fieldRow);
-        }
-        return field;
-    };
+const clearContainer = function (container) {
+    container.innerHTML = "";
+};
 
-    const clearContainer = function (container) {
-        container.innerHTML = "";
-    };
+const createGameCell = function (state, i, j) {
+    const cell = document.createElement("div");
+    cell.id = `${i}_${j}`;
+    state && cell.classList.add("active");
+    return cell;
+};
 
-    const createCell = function (state, i, j) {
-        const cell = document.createElement("div");
-        cell.id = `${i}_${j}`;
-        state && cell.classList.add("active");
-        return cell;
-    };
+const startTimer = function () {
+    stopGameTimer();
+    time = 0;
+    const timerContainer = document.getElementById("timer");
+    timerContainer.textContent = "00:00";
+    timer = setInterval(() => {
+        time++;
+        timerContainer.textContent =
+            Math.floor((time % 3600) / 60)
+                .toString()
+                .padStart(2, "0") +
+            ":" +
+            Math.floor(time % 60)
+                .toString()
+                .padStart(2, "0");
+    }, 1000);
+};
 
-    const startTimer = function () {
-        time = 0;
-        const timerContainer = document.getElementById("timer");
-        timerContainer.textContent = "00:00";
-        timer = setInterval(() => {
-            time++;
-            timerContainer.textContent =
-                Math.floor((time % 3600) / 60)
-                    .toString()
-                    .padStart(2, "0") +
-                ":" +
-                Math.floor(time % 60)
-                    .toString()
-                    .padStart(2, "0");
-        }, 1000);
-    };
-
-    const addEventsToCells = function (field, fieldPattern) {
-        for (let i = 0; i < field.length; i++) {
-            for (let j = 0; j < field[0].length; j++) {
-                field[i][j].addEventListener("click", (event) => {
-                    toggleCell(fieldPattern, i, j);
-                    toggleCell(fieldPattern, i + 1, j);
-                    toggleCell(fieldPattern, i - 1, j);
-                    toggleCell(fieldPattern, i, j + 1);
-                    toggleCell(fieldPattern, i, j - 1);
-                    checkIsAllItemsAreZeros(fieldPattern) && end();
-                    setCount();
-                });
-            }
-        }
-    };
-
-    const toggleCell = function (fieldPattern, i, j) {
-        const cell = document.getElementById(`${i}_${j}`);
-        if (cell) {
-            fieldPattern[i][j] = !fieldPattern[i][j];
-            cell.classList.toggle("active");
-        }
-    };
-
-    const checkIsAllItemsAreZeros = function (fieldPattern) {
-        let isAllZeros = true;
-        fieldPattern.forEach((row) => {
-            row.forEach((cell) => {
-                isAllZeros = !cell && isAllZeros ? true : false;
+const attachClickEventsToCells = function (field, fieldPattern) {
+    for (let i = 0; i < field.length; i++) {
+        for (let j = 0; j < field[0].length; j++) {
+            field[i][j].addEventListener("click", (event) => {
+                toggleCellState(fieldPattern, i, j);
+                toggleCellState(fieldPattern, i + 1, j);
+                toggleCellState(fieldPattern, i - 1, j);
+                toggleCellState(fieldPattern, i, j + 1);
+                toggleCellState(fieldPattern, i, j - 1);
+                checkIfAllCellsAreZeroes(fieldPattern) && endTheGame();
+                updateMoveCount();
             });
+        }
+    }
+};
+
+const toggleCellState = function (fieldPattern, i, j) {
+    const cell = document.getElementById(`${i}_${j}`);
+    if (cell) {
+        fieldPattern[i][j] = !fieldPattern[i][j];
+        cell.classList.toggle("active");
+    }
+};
+
+const checkIfAllCellsAreZeroes = function (fieldPattern) {
+    let allZeroes = true;
+    fieldPattern.forEach((row) => {
+        row.forEach((cell) => {
+            allZeroes = !cell && allZeroes ? true : false;
         });
-        return isAllZeros;
-    };
-
-    const end = function () {
-        stopTimer();
-        setTimeout(() => {
-            if (!alert("the end")) {
-            }
-        }, 500);
-    };
-
-    const setCount = function () {
-        movesCount++;
-        document.getElementById("moves").textContent = movesCount;
-    };
-
-    const setDefaultCount = function () {
-        document.getElementById("moves").textContent = 0;
-    };
-
-    const stopTimer = function () {
-        clearInterval(timer);
-    };
-
-    const setTarget = function (target) {
-        document.getElementById("target").textContent = target;
-    };
-
-    buildField([
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-    ]);
-
-    const startButton = document.getElementById("start-button");
-    startButton.addEventListener("click", () => {
-        fetch("/getTemplate")
-            .then((response) => {
-                return response.json();
-            })
-            .then((object) => {
-                start(object);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
     });
-})(window);
+    return allZeroes;
+};
+
+const endTheGame = function () {
+    stopGameTimer();
+    setTimeout(() => {
+        if (!alert("Congratulation! You're N...")) {
+        }
+    }, 500);
+};
+
+constructField([
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+]);
+
+const updateMoveCount = function () {
+    movesCount++;
+    document.getElementById("moves").textContent = movesCount;
+};
+
+const resetMoveCount = function () {
+    document.getElementById("moves").textContent = 0;
+};
+
+const stopGameTimer = function () {
+    clearInterval(timer);
+};
+
+const setGameTarget = function (target) {
+    document.getElementById("target").textContent = target;
+};
+
+const getRandomField = async () => {
+    const fields = ["field1.json", "field2.json", "field3.json"];
+    const randomField = fields[Math.floor(Math.random() * fields.length)];
+    try {
+        const response = await fetch(randomField);
+        const object = await response.json();
+        startGame(object);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const startButton = document.getElementById("start-btn");
+startButton.addEventListener("click", getRandomField);
