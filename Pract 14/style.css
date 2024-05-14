@@ -1,71 +1,87 @@
-*{
-    font-weight: bold;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+/* Загальні стилі для body */
+body {
+    font-family: Arial, sans-serif; /* Встановлюємо шрифт для всього документу */
+    background-color: #f0f0f0; /* Встановлюємо колір фону */
+    margin: 0; /* Видаляємо зовнішні відступи */
+    padding: 0; /* Видаляємо внутрішні відступи */
+    display: flex; /* Встановлюємо flex контейнер */
+    justify-content: center; /* Вирівнюємо по центру по горизонталі */
+    align-items: center; /* Вирівнюємо по центру по вертикалі */
+    height: 100vh; /* Встановлюємо висоту на весь екран */
 }
 
-body{
-    background: #ff80ff;
-}
-main{
-    display: flex;
-    justify-content: center;
-}
-panel{
-    display: flex;
-    padding-right: 40px;
-    flex-direction: column;
+/* Стилі для контейнера гри */
+#gameContainer {
+    text-align: center; /* Вирівнюємо текст по центру */
 }
 
-button{
-    background: white;
-    width: 157px;
-    border: 2px solid black;
-    margin-top: 40px;
-    height: 30px;
-    cursor: pointer;
-}
-input{
-    width: 150px;
-    border: 2px solid black;
-    margin-top: 40px;
-    height: 30px;
+/* Стилі для заголовку */
+h1 {
+    font-size: 32px; /* Встановлюємо розмір шрифту */
+    color: #333; /* Встановлюємо колір тексту */
+    margin-top: 20px; /* Відступ зверху */
 }
 
-.panel > button {
-    margin-top: 10px;
+/* Стилі для кнопок */
+button {
+    padding: 12px 24px; /* Встановлюємо внутрішні відступи */
+    margin: 10px; /* Зовнішні відступи */
+    background-color: #007bff; /* Колір фону */
+    color: white; /* Колір тексту */
+    border: none; /* Видаляємо рамку */
+    border-radius: 5px; /* Закруглюємо кути */
+    cursor: pointer; /* Змінюємо курсор на вказівник */
+    font-size: 18px; /* Розмір шрифту */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Плавний перехід */
 }
 
-.field{
-    width: 60%;
-    display: grid;
-    grid-template: repeat(5, 75px) / repeat(5, 75px);
-    gap: 3px;
+button:hover {
+    background-color: #0056b3; /* Колір фону при наведенні */
 }
 
-.field > div{
-    cursor: pointer;
-    float: left;
-    background: #cc0099;
-    transition: all 0.3s;
-    backface-visibility: visible;
-    &.flip{
-        transform: rotateY(180deg) rotateX(180deg) rotateZ(180deg);
-        opacity: 0;
+/* Стилі для дошки гри */
+#gameBoard {
+    margin: 20px auto; /* Зовнішні відступи: верх та низ */
+    border-collapse: collapse; /* Злиття границь */
+}
+
+/* Стилі для клітинок на дошці */
+td {
+    width: 60px; /* Ширина клітинки */
+    height: 60px; /* Висота клітинки */
+    background-color: #ccc; /* Колір фону клітинки */
+    border: 1px solid #000; /* Границя клітинки */
+    cursor: pointer; /* Змінюємо курсор на вказівник */
+    transition: background-color 0.3s ease; /* Плавний перехід */
+}
+
+/* Стилі для включених ліхтариків */
+.lightOn {
+    background-color: #008080; /* Колір фону для включених ліхтариків */
+}
+
+/* Стилі для вимкнених ліхтариків */
+.lightOff {
+    background-color: #66CDAA; /* Колір фону для вимкнених ліхтариків */
+}
+
+/* Стилі для інформації про гру */
+#gameInfo {
+    margin-top: 20px; /* Зовнішній відступ зверху */
+}
+
+/* Стилі для параграфів в інформації про гру */
+#gameInfo p {
+    margin: 5px 0; /* Внутрішній відступ */
+}
+
+/* Медіазапит для екранів з шириною до 768px */
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 28px; /* Зменшуємо розмір шрифту для мобільних пристроїв */
     }
-    &.flip-delay{
-        transition-delay: 0.2s;
+    button {
+        padding: 10px 20px; /* Зменшуємо внутрішні відступи для мобільних пристроїв */
+        font-size: 16px; /* Зменшуємо розмір шрифту для мобільних пристроїв */
     }
-    &:hover{
-        box-shadow: inset 0 0 5px #fff;
-    }
-}
-
-.active {
-    background-color: orange !important;
-}
-
-#stats {
-    display: flex;
-    justify-content: space-around;
 }
