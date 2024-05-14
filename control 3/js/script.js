@@ -86,12 +86,12 @@
     }
 
     function showInfo(func) {
-        fetch(`./data/${func}.json`)
+        fetch(`./json/${func}.json`)
             .then((response) => {
                 return response.json();
             })
             .then((json) => {
-                fetch("./snippet/info.html")
+                fetch("./Shippet/date.html")
                     .then((response) => {
                         return response.text();
                     })
