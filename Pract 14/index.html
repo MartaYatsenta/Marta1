@@ -1,37 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Практична робота №14</title>
-        <link rel="stylesheet" href="./style.css" />
-    </head>
-    <body>
-        <h1>Практична робота №14 Яцента Марта Ігорівна</h1>
-        <div class="wrapper">
-            <div class="control-panel">
-                <button id="start-button">New game</button>
-                <button id="restart-button">Restart</button>
-            </div>
-            <div class="game-container">
-                <div id="field-container"></div>
-                <div id="stats">
-                    <div class="col">
-                        <label for="timer">Timer:</label>
-                        <div id="timer" name="timer">00:00</div>
-                    </div>
-                    <div class="col">
-                        <label for="target">Target:</label>
-                        <div id="target" name="target">0</div>
-                    </div>
-                    <div class="col">
-                        <label for="moves">Moves:</label>
-                        <div id="moves" name="moves">0</div>
-                    </div>
-                </div>
-            </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Lights Out</title>
+</head>
+<body>
+  <main>
+    <panel>
+        <button id="start-btn">Start</button>
+        <button id="restart-btn">Restart</button>
+    </panel>
+    <game__cont>
+      <field__game id="field-cont" class="field"></field__game>
+      <stats__game id="stats">
+        <div>
+          <label for="Timer">Timer:</label>
+          <div id="timer" name="Timer"></div>
         </div>
-
-        <script src="./script.js"></script>
-    </body>
+        <div>
+          <label for="Moves">Moves:</label>
+          <div id="moves" name="Moves"></div>
+        </div>
+        <div>
+          <label for="Target">Target:</label>
+          <div id="target" name="Target"></div>
+        </div>
+      </stats__game>
+    </game__cont>
+  </main>
+  <script src="main.js"></script>
+</body>
 </html>
