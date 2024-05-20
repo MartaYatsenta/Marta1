@@ -15,11 +15,11 @@ main {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    color: #BDB76B;
+    color: black
 }
 
 .catalog-text h2 {
-    font-size: 32px;
+    font-size: 35px;
     font-weight: 500;
 }
 
@@ -37,9 +37,9 @@ main {
 
 .catalog-content {
     position: relative;
-    width: 200px; 
-    max-width: 200px; 
-    height: 200px;
+    width: 250px; 
+    max-width: 250px; 
+    height: 250px;
     margin: 30px;
 }
 .catalog-content img {
@@ -64,17 +64,11 @@ main {
     left: 0;
     width: 100%;
     padding: 10px 0;
-    color: white;
+    color: black;
     background-color:#F0E68C;
 }
 
-@media (min-width: 1200px) {
-    .catalog-content {
-        width: calc(25% - 60px); 
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 1200px), (min-width: 992px) and (max-width: 1199px) {
     .catalog-content {
         width: calc(25% - 60px); 
     }
@@ -84,7 +78,7 @@ main {
     .catalog-content {
         width: calc(33.33% - 60px); 
     }
-     .catalog-container {
+    .catalog-container {
         align-items: center;
         justify-content: space-evenly;
         margin: auto;
@@ -105,6 +99,8 @@ main {
         flex-direction: column;
         align-items: center;
         margin: auto;
+    }
 }
+
 
 
