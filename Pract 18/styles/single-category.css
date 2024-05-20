@@ -2,7 +2,7 @@
 @import url(../styles/burger.css);
 
 .single-category_container {
-    color: #BDB76B;
+    color: #000;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -13,7 +13,7 @@
     width: 50%;
 }
 .single-category-img {
-    width: 40%;
+    width: 45%;
 }
 .img {
     background: url("../image/catalog/A/A-1.jpg") no-repeat;
@@ -27,7 +27,7 @@
     position: absolute;
     right: 2px;
     bottom: 3px;
-    background-color: #EEE8AA;
+    background-color: #FFFACD;
     text-align: center;
     width: 30%;
     padding: 3px 0;
@@ -50,7 +50,7 @@
     padding: 0 2px;
 }
 .item-content {
-    width: 55%;
+    width: 50%;
     padding: 0 7px;
 }
 .singe-category-title {
@@ -60,7 +60,7 @@
 }
 .singe-category-description {
     font-size: 16px;
-    line-height: 130%;
+    line-height: 125%;
     font-style: oblique;
     font-weight: 500;
 }
@@ -105,7 +105,7 @@
         margin: 20px auto;
         width: 80%;
         padding: 1px 0;
-        background-color: #BDB76B;
+        background-color:black;
     }
 }
 
