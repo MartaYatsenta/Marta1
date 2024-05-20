@@ -1,10 +1,14 @@
 .footer {
     background-color: #BDB76B;
+    color: #F0E68C;
+    text-align: center;
 }
 
-footer p,
-footer a {
-    color: #F0E68C;
+.footer p,
+.footer a {
+    color: inherit;
+    line-height: 1.3;
+    margin: 5px 0;
 }
 
 .footer-info {
@@ -12,11 +16,6 @@ footer a {
     grid-template-columns: repeat(3, 1fr);
     gap: 5px;
     padding: 10px 0;
-}
-
-.footer-info p {
-    padding: 5px 0;
-    line-height: 1.3;
 }
 
 .footer-info > div p:first-child {
@@ -27,11 +26,7 @@ footer a {
     font-size: 14px;
 }
 
-.footer-text {
-    text-align: center;
-}
-
-@media (max-width: 768px) and (min-width: 576px) {
+@media (max-width: 768px) {
     .footer-info {
         grid-template-columns: 1fr;
     }
