@@ -128,6 +128,9 @@ h6 {
         margin: 0 auto;
         padding: 15px 0;
     }
+     .navbar-content ul > li {
+        display: none;
+    }
 }
 
 @media (max-width: 576px) {
