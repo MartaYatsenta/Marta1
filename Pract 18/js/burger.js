@@ -1,20 +1,20 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const menuIcon = document.querySelector('.menu-icon');
-    const burger = document.querySelector('.burger');
-    const phoneNumber = document.querySelector('.link-number');
+function toggleMenu() {
+    var menuIcon = document.querySelector('.menu-icon');
+    menuIcon.classList.toggle('active');
 
-    menuIcon.addEventListener('click', function() {
-        burger.classList.toggle('active');
-    });
+    var burgerMenu = document.querySelector('.burger');
+    burgerMenu.classList.toggle('active');
+}
 
-    document.addEventListener('click', function(event) {
-        const target = event.target;
-        const isMenuIcon = target.classList.contains('menu-icon');
-        const isBurger = target.classList.contains('burger');
-        const isPhoneNumber = target.classList.contains('link-number');
+document.querySelector('.menu-icon').addEventListener('click', toggleMenu);
 
-        if (!isMenuIcon && !isBurger && !isPhoneNumber) {
-            burger.classList.remove('active');
+document.addEventListener('click', function(event) {
+    var menuIcon = document.querySelector('.menu-icon');
+    var burgerMenu = document.querySelector('.burger');
+
+    if (!menuIcon.contains(event.target) && !burgerMenu.contains(event.target)) {
+        if (burgerMenu.classList.contains('active')) {
+            toggleMenu();
         }
-    });
+    }
 });
