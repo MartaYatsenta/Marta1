@@ -62,7 +62,7 @@
 
 .logo-container {
     position: relative; 
-    top: -20px; 
+    top: -23px; 
 }
 
 .logo-img {
@@ -90,7 +90,7 @@
 .navbar-content ul > li {
     margin: 0 10px;
     display: flex;
-    min-height: 60px;
+    min-height: 65px;
     background-position: top 5px left 50%;
     background-size: 35px;
     background-repeat: no-repeat;
@@ -262,7 +262,8 @@ main {
 
 .slide-card > .carousel-img {
     width: 100%;
-    height: 800px;
+    max-height: 600px; 
+    object-fit: cover; 
 }
 
 .slider {
@@ -290,7 +291,7 @@ main {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+    background: #EEE8AA;
     border: none;
     font-size: 24px;
     cursor: pointer;
@@ -343,7 +344,7 @@ main {
     left: 0;
     width: 100%;
     padding: 10px 0;
-    color: white;
+    color: black;
     background-color: #F0E68C;
 }
 
